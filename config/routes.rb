@@ -1,3 +1,13 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :artists, only: %i[show index new] do
+    resources :songs, only: %i[show index]
+  end
+
+  resources :songs, only: %i[index show new create edit update]
+
+  namespace :admin do
+    resources :preferences, only: [:index]
+  end
+
+  root 'songs#index'
 end
